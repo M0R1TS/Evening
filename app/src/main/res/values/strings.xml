@@ -7,4 +7,5 @@
     <string name="Pozje">ПОСМОТРЕТЬ ПОЗЖЕ</string>
     <string name="Podborki">ПОДБОРКА</string>
     <string name="Settings">НАСТРОЙКИ</string>
+    <string name="warning">Изображения взяты с сторонних ресурсов</string>
 </resources>
