@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Evening</string>
+    <string name="pexels_com">Картинки взяты с pexels.com</string>
+    <string name="pexels_com_play">Картинки взяты с pexels.com</string>
+    <string name="Menu">МЕНЮ</string>
+    <string name="Izbranoe">ИЗБРАННОЕ</string>
+    <string name="Pozje">ПОСМОТРЕТЬ ПОЗЖЕ</string>
+    <string name="Podborki">ПОДБОРКА</string>
+    <string name="Settings">НАСТРОЙКИ</string>
+    <string name="warning">Изображения взяты с сторонних ресурсов</string>
 </resources>
