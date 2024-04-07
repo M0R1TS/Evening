@@ -60,21 +60,19 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:background="@color/black"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
         app:labelVisibilityMode="labeled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        app:menu="@menu/navigator">
+        app:menu="@menu/navigator"
+        tools:layout_editor_absoluteY="674dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -109,85 +107,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-
-        android:columnCount="2"
-        android:layoutAnimation="@anim/layout_animation"
-        android:orientation="horizontal"
-        android:useDefaultMargins="true"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        tools:listitem="@layout/film_item"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/poster_1"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            app:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/killbill"
-                android:stateListAnimator="@animator/button_animation" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/poster_2"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            app:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rocky"
-                android:stateListAnimator="@animator/button_animation" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/poster_3"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            app:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pulpfiction"
-                android:stateListAnimator="@animator/button_animation" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/poster_4"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            app:cardCornerRadius="15dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/jaws"
-                android:stateListAnimator="@animator/button_animation" />
-        </androidx.cardview.widget.CardView>
-    </GridLayout>
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
