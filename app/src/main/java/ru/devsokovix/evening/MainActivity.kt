@@ -3,10 +3,12 @@ package ru.devsokovix.evening
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
+import android.content.Intent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import drawable.FilmListRecyclerAdapter
 import ru.devsokovix.evening.databinding.ActivityMainBinding
 import ru.devsokovix.evening.databinding.FilmItemBinding
@@ -14,19 +16,45 @@ import ru.devsokovix.evening.databinding.FilmItemBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var filmsAdapter: FilmItemBinding
+    private lateinit var filmsAdapterTop: FilmListRecyclerAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        var main_recycler = (R.id.main_recycler)
+        //находим наш RV
+        main_recycler.apply {
+            //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс,
+            //оставим его пока пустым, он нам понадобится во второй части задания
+            filmsAdapterTop = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
+                override fun click(film: Film) {}
+            })
+            //Присваиваем адаптер
+            adapter = filmsAdapterTop
+            //Присвои layoutmanager
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            //Применяем декоратор для отступов
+            val decorator = TopSpacingItemDecoration(8)
+            addItemDecoration(decorator)
+        }
+//Кладем нашу БД в RV
+        filmsAdapterTop.addItems(filmsDataBase)
+
         super.onCreate(savedInstanceState)
         filmsAdapter = FilmItemBinding.inflate(layoutInflater)
-        setContentView(filmsAdapter.root)
+//        setContentView(filmsAdapter.root)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
+
+    }
+
+    private fun addItemDecoration(decorator: TopSpacingItemDecoration) {
 
     }
 

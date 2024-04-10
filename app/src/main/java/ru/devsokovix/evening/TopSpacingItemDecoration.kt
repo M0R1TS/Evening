@@ -1,4 +1,4 @@
-package drawable
+package ru.devsokovix.evening
 
 import android.content.res.Resources
 import android.graphics.Rect
