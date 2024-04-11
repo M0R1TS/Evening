@@ -16,7 +16,7 @@ class DetailsActivity : AppCompatActivity() {
         setFilmsDetails()
     }
 
-    private fun setFilmsDetails() {
+    private fun setFilmsDetails(){
         //Получаем наш фильм из переданного бандла
         val film = intent.extras?.get("film") as Film
 
