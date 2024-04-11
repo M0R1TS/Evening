@@ -21,11 +21,11 @@ class DetailsActivity : AppCompatActivity() {
         val film = intent.extras?.get("film") as Film
 
         //Устанавливаем заголовок
-        details_toolbar.title = film.title
+        bindingDetails.detailsToolbar.title = film.title
         //Устанавливаем картинку
-        details_poster.setImageResource(film.poster)
+        bindingDetails.detailsPoster.setImageResource(film.poster)
         //Устанавливаем описание
-        details_description.text = film.description
+        bindingDetails.detailsDescription.text = film.description
     }
 }
 
