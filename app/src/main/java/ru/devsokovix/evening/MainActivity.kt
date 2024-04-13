@@ -1,20 +1,22 @@
 package ru.devsokovix.evening
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import android.widget.Toast
 import ru.devsokovix.evening.databinding.ActivityMainBinding
-import ru.devsokovix.evening.databinding.FragmentHomeBinding
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+    private var backPressed = 0L
 
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var bindingactivity: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         initNavigation()
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
 
+
     }
 
     fun launchDetailsFragment(film: Film) {
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         bundle.putParcelable("film", film)
         val fragment = DetailsFragment()
         fragment.arguments = bundle
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_placeholder, fragment)
@@ -38,13 +42,39 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else {
+                Toast.makeText(this, "Для выхода - нажмите еще раз", Toast.LENGTH_SHORT).show()
+            }
+
+            backPressed = System.currentTimeMillis()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+
+
+    companion object{
+        const val TIME_INTERVAL = 2000
+    }
+
+
     private fun initNavigation() {
 
-        bindingactivity.bottomNavigation.setOnNavigationItemSelectedListener {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
 
             when (it.itemId) {
                 R.id.favorites -> {
-                    Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
                     true
                 }
                 R.id.watch_later -> {
@@ -58,5 +88,8 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
+
+
 }

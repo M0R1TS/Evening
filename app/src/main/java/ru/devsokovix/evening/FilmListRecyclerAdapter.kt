@@ -1,5 +1,6 @@
 package drawable
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,28 +13,36 @@ class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) :
     override fun getItemCount() = items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = FilmItemBinding.inflate(inflater, parent, false)
-        return FilmViewHolder(binding, clickListener)
+        val viewHolder = FilmViewHolder(
+            FilmItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        //Проверяем какой у нас ViewHolder
         when (holder) {
             is FilmViewHolder -> {
                 holder.bind(items[position])
+                holder.itemView.setOnClickListener {
+                    clickListener.click(items[position])
+                }
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addItems(list: List<Film>) {
         items.clear()
         items.addAll(list)
         notifyDataSetChanged()
     }
 
-
     interface OnItemClickListener {
         fun click(film: Film)
     }
-
 }
