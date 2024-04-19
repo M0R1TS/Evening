@@ -7,14 +7,14 @@
         android:title="@string/Izbranoe"
         app:showAsAction="withText" />
     <item
-        android:id="@+id/watch_later"
-        android:icon="@android:drawable/ic_menu_recent_history"
-        android:title="@string/Pozje"
-        app:showAsAction="withText" />
-    <item
         android:id="@+id/selections"
         android:icon="@android:drawable/ic_menu_set_as"
         android:title="@string/Podborki"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/watch_later"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="@string/Pozje"
         app:showAsAction="withText" />
 
 </menu>

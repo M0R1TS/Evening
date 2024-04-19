@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
             .commit()
-
-
     }
 
     fun launchDetailsFragment(film: Film) {
@@ -58,8 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    companion object{
+    companion object {
         const val TIME_INTERVAL = 2000
     }
 
@@ -77,14 +74,17 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
+
                 R.id.watch_later -> {
                     Toast.makeText(this, "Посмотреть похже", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 R.id.selections -> {
                     Toast.makeText(this, "Подборки", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 else -> false
             }
         }
