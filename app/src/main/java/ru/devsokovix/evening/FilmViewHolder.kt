@@ -6,9 +6,8 @@ import ru.devsokovix.evening.Film
 import ru.devsokovix.evening.databinding.FilmItemBinding
 
 
-
 class FilmViewHolder(private var binding: FilmItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val title =  binding.title
+    private val title = binding.title
     private val poster = binding.poster
     private val description = binding.description
 
