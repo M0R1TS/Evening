@@ -80,12 +80,16 @@ class HomeFragment : Fragment() {
         initRecyckler()
 
 
-        val scene =
-            Scene.getSceneForLayout(container, R.layout.merge_home_screen_context, requireContext())
+        val scene = Scene.getSceneForLayout(container, R.layout.merge_home_screen_context, requireContext())
+        //Создаем анимацию выезда поля поиска сверху
         val searchSlide = Slide(Gravity.TOP).addTarget(R.id.search_view)
+        //Создаем анимацию выезда RV снизу
         val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(R.id.main_recycler)
+        //Создаем экземпляр TransitionSet, который объеденит все наши анимации
         val customTransition = TransitionSet().apply {
+            //Устанавливаем время за которое будет проходить анимация
             duration = 500
+            //Добавляем сами анимации
             addTransition(recyclerSlide)
             addTransition(searchSlide)
         }
@@ -101,32 +105,42 @@ class HomeFragment : Fragment() {
 
 
 
+
         binding.searchView.setOnClickListener {
             binding.searchView.isIconified = false
         }
 
 
+        //Подключаем слушателя изменений введенного текста в поиска
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            //Этот метод отрабатывает при нажатии кнопки "поиск" на софт клавиатуре
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
+            //Этот метод отрабатывает на каждое изменения текста
             override fun onQueryTextChange(newText: String): Boolean {
+                //Если ввод пуст то вставляем в адаптер всю БД
                 if (newText.isEmpty()) {
                     filmsAdapter.addItems(filmsDataBase)
                     return true
                 }
+                //Фильтруем список на поиску подходящих сочетаний
                 val result = filmsDataBase.filter {
+                    //Чтобы все работало правильно, нужно и запроси и имя фильма приводить к нижнему регистру
                     it.title.lowercase(Locale.getDefault())
                         .contains(newText.lowercase(Locale.getDefault()))
                 }
+                //Добавляем в адаптер
                 filmsAdapter.addItems(result)
                 return true
             }
         })
 
+        //находим наш RV
         initRecyckler()
+        //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
     }
 
@@ -139,8 +153,11 @@ class HomeFragment : Fragment() {
                         (requireActivity() as MainActivity).launchDetailsFragment(film)
                     }
                 })
+            //Присваиваем адаптер
             adapter = filmsAdapter
+            //Присвои layoutmanager
             layoutManager = LinearLayoutManager(requireContext())
+            //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
         }

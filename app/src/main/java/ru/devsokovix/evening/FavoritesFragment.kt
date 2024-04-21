@@ -26,6 +26,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Получаем список при транзакции фрагмента
         val favoritesList: List<Film> = emptyList()
 
         binding.favoritesRecycler.apply {
@@ -35,11 +36,15 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                         (requireActivity() as MainActivity).launchDetailsFragment(film)
                     }
                 })
+            //Присваиваем адаптер
             adapter = filmsAdapter
+            //Присвои layoutmanager
             layoutManager = LinearLayoutManager(requireContext())
+            //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
         }
+        //Кладем нашу БД в RV
         filmsAdapter.addItems(favoritesList)
     }
 }
