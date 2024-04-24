@@ -37,13 +37,18 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
 
         binding.detailsFabShare.setOnClickListener {
+            //Создаем интент
             val intent = Intent()
+            //Укзываем action с которым он запускается
             intent.action = Intent.ACTION_SEND
+            //Кладем данные о нашем фильме
             intent.putExtra(
                 Intent.EXTRA_TEXT,
                 "Check out this film: ${film.title} \n\n ${film.description}"
             )
+            //Указываем MIME тип, чтобы система знала, какое приложения предложить
             intent.type = "text/plain"
+            //Запускаем наше активити
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
     }
@@ -51,8 +56,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private fun setFilmsDetails() {
         film = arguments?.get("film") as Film
 
+        //Устанавливаем заголовок
         binding.detailsToolbar.title = film.title
+        //Устанавливаем картинку
         binding.detailsPoster.setImageResource(film.poster)
+        //Устанавливаем описание
         binding.detailsDescription.text = film.description
 
         binding.detailsFabFavorites.setImageResource(
