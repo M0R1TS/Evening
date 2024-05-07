@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/home"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/GLAV"/>
+    <item
         android:id="@+id/favorites"
         android:icon="@android:drawable/btn_star"
         android:title="@string/Izbranoe"
         app:showAsAction="withText" />
     <item
         android:id="@+id/selections"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/baseline_watch_later_24"
         android:title="@string/Podborki"
         app:showAsAction="withText" />
     <item
         android:id="@+id/watch_later"
-        android:icon="@android:drawable/ic_menu_recent_history"
+        android:icon="@drawable/baseline_smart_display_24"
         android:title="@string/Pozje"
         app:showAsAction="withText" />
 
