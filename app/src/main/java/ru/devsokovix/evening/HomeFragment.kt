@@ -1,7 +1,6 @@
 package ru.devsokovix.evening
 
 import android.os.Bundle
-import android.transition.Scene
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.transition.TransitionSet
@@ -13,12 +12,14 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import drawable.FilmListRecyclerAdapter
+import ru.devsokovix.evening.databinding.FragmentHomeBinding
+import ru.devsokovix.evening.databinding.FragmentWatchLaterBinding
 import ru.devsokovix.evening.databinding.MergeHomeScreenContextBinding
 import java.util.Locale
 
 class HomeFragment : Fragment() {
 
-    private lateinit var binding: MergeHomeScreenContextBinding
+    private lateinit var binding: FragmentHomeBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     private val filmsDataBase: List<Film>
@@ -74,34 +75,15 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MergeHomeScreenContextBinding.inflate(layoutInflater, container, false)
-
-
-        initRecyckler()
-
-
-        val scene = Scene.getSceneForLayout(container, R.layout.merge_home_screen_context, requireContext())
-        //Создаем анимацию выезда поля поиска сверху
-        val searchSlide = Slide(Gravity.TOP).addTarget(R.id.search_view)
-        //Создаем анимацию выезда RV снизу
-        val recyclerSlide = Slide(Gravity.BOTTOM).addTarget(R.id.main_recycler)
-        //Создаем экземпляр TransitionSet, который объеденит все наши анимации
-        val customTransition = TransitionSet().apply {
-            //Устанавливаем время за которое будет проходить анимация
-            duration = 500
-            //Добавляем сами анимации
-            addTransition(recyclerSlide)
-            addTransition(searchSlide)
-        }
-        TransitionManager.go(scene, customTransition)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
-
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
 
         binding.searchView.setOnClickListener {
             binding.searchView.isIconified = false
@@ -158,6 +140,4 @@ class HomeFragment : Fragment() {
             addItemDecoration(decorator)
         }
     }
-
-
 }
