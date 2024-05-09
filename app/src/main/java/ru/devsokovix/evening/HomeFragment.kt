@@ -38,12 +38,6 @@ class HomeFragment : Fragment() {
                         " Now only ruthless revenge will calm the heart of the Black Mamba."
             ),
             Film(
-                "Pulp Fiction",
-                R.drawable.pulpfiction,
-                "Following Tarantino's previous film Reservoir Dogs, parts of the plot of Pulp Fiction were split up, " +
-                        "mixed up and shown in the \"wrong\" order; a technique previously used by directors of the French New Wave, notably Jean-Luc Godard and François Truffaut, as well as Stanley Kubrick in The Killing."
-            ),
-            Film(
                 "Rocky",
                 R.drawable.rocky,
                 "The film takes place from November 25, 1975 to January 1, 1976, in the town of Kensington. near Philadelphia. The main character Rocky Balboa is an amateur boxer." +
