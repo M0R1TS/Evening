@@ -1,15 +1,20 @@
 package ru.devsokovix.evening
 
 import android.content.Intent
+import android.health.connect.datatypes.units.Percentage
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.TextUnit
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import ru.devsokovix.evening.databinding.ActivityHomeBinding
 import ru.devsokovix.evening.databinding.ActivityMainBinding
+import ru.devsokovix.evening.databinding.FilmItemBinding
 
 
 @Suppress("DEPRECATION")
@@ -17,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var animator: FilmItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
