@@ -1,4 +1,4 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.view.customviews
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,6 +8,7 @@ import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
+import ru.devsokovix.evening.R
 
 class RatingDonutView @JvmOverloads constructor(
     context: Context,
@@ -44,6 +45,7 @@ class RatingDonutView @JvmOverloads constructor(
         //вызываем перерисовку View
         invalidate()
     }
+
 
     private fun initPaint() {
         //Краска для колец

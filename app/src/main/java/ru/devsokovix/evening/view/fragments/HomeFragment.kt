@@ -1,77 +1,49 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.view.fragments
 
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import drawable.FilmListRecyclerAdapter
+import ru.devsokovix.evening.view.rv_adapters.FilmListRecyclerAdapter
+import ru.devsokovix.evening.view.MainActivity
+import ru.devsokovix.evening.R
+import ru.devsokovix.evening.view.rv_adapters.TopSpacingItemDecoration
 import ru.devsokovix.evening.databinding.FragmentHomeBinding
-import ru.devsokovix.evening.databinding.FragmentWatchLaterBinding
-import ru.devsokovix.evening.databinding.MergeHomeScreenContextBinding
+import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.utils.AnimationHelper
+import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
-    private val filmsDataBase: List<Film>
-        get() = listOf(
-            //Все рейтинги к фильмам указаны случайно и не отражают действительность и/или мнение автора.
-            Film(
-                "Jaws",
-                R.drawable.jaws,
-                "In the story, a giant man-eating shark attacks vacationers on Amity Island, " +
-                        "a fictional New England resort town, prompting the local police chief to catch it with the help of an oceanographer and a professional shark hunter.",
-                7.7f
-            ),
-            Film(
-                "KILL BILL",
-                R.drawable.killbill,
-                "A pregnant assassin nicknamed Black Mamba is shot during her wedding by a man named Bill. But the woman’s " +
-                        "head turned out to be strong - after lying in a coma for four years, the former bride comes to her senses. She is passionate about finding the traitors." +
-                        " Now only ruthless revenge will calm the heart of the Black Mamba.",
-                2.8f
-            ),
-            Film(
-                "Rocky",
-                R.drawable.rocky,
-                "The film takes place from November 25, 1975 to January 1, 1976, in the town of Kensington. near Philadelphia. The main character Rocky Balboa is an amateur boxer." +
-                        " During the day, Rocky extracts money from the debtors of his boss, local crime boss Tony Gazzo, and in the evenings he trains and performs in the ring.",
-                5.6f
-            ),
-            Film(
-                "Shogun",
-                R.drawable.shogun,
-                "When a mysterious European ship is found marooned in a nearby fishing village, Lord Yoshii Toranaga discovers secrets that could tip the scales of power and devastate his enemies.",
-                8.6f
-            ),
-            Film(
-                "Game of Thrones",
-                R.drawable.gameofthrones,
-                "Nine noble families fight for control over the lands of Westeros, while an ancient enemy returns after being dormant for millennia.",
-                1.7f
-            ),
-            Film(
-                "Breaking Bad",
-                R.drawable.breakinbad,
-                "A chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student in order to secure his family's future.",
-                3.9f
-            ),
-            Film(
-                "The Wolf of Wall Street",
-                R.drawable.thewolfofwallstreet,
-                "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government.",
-                9.9f
-            )
-        )
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
+    }
+
+    private var filmsDataBase = listOf<Film>()
+        //Используем backing field
+        set(value) {
+            //Если придет такое же значение, то мы выходим из метода
+            if (field == value) return
+            //Если пришло другое значение, то кладем его в переменную
+            field = value
+            //Обновляем RV адаптер
+            filmsAdapter.addItems(field)
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,7 +93,9 @@ class HomeFragment : Fragment() {
         //находим наш RV
         initRecyckler()
         //Кладем нашу БД в RV
-        filmsAdapter.addItems(filmsDataBase)
+        viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
+            filmsDataBase = it
+        })
     }
 
 

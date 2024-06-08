@@ -1,4 +1,4 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.utils
 
 import android.app.Activity
 import android.view.View

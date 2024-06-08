@@ -1,4 +1,4 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.FragmentDetailsBinding
+import ru.devsokovix.evening.domain.Film
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var binding: FragmentDetailsBinding
