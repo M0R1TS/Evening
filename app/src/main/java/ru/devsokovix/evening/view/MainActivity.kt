@@ -1,20 +1,18 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.view
 
-import android.content.Intent
-import android.health.connect.datatypes.units.Percentage
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.unit.TextUnit
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
-import ru.devsokovix.evening.databinding.ActivityHomeBinding
+import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.ActivityMainBinding
 import ru.devsokovix.evening.databinding.FilmItemBinding
+import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.view.fragments.DetailsFragment
+import ru.devsokovix.evening.view.fragments.FavoritesFragment
+import ru.devsokovix.evening.view.fragments.HomeFragment
+import ru.devsokovix.evening.view.fragments.SelectionsFragment
+import ru.devsokovix.evening.view.fragments.WatchLaterFragment
 
 
 @Suppress("DEPRECATION")
@@ -40,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
             .commit()
+
     }
 
     fun launchDetailsFragment(film: Film) {
@@ -60,6 +59,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount == 1) {
             if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {

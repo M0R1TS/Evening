@@ -1,4 +1,4 @@
-package ru.devsokovix.evening
+package ru.devsokovix.evening.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import drawable.FilmListRecyclerAdapter
+import ru.devsokovix.evening.view.rv_adapters.FilmListRecyclerAdapter
+import ru.devsokovix.evening.view.MainActivity
+import ru.devsokovix.evening.R
+import ru.devsokovix.evening.view.rv_adapters.TopSpacingItemDecoration
 import ru.devsokovix.evening.databinding.FragmentFavoritesBinding
+import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.utils.AnimationHelper
 
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {

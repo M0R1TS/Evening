@@ -6,7 +6,7 @@
     android:background="#e3d5ca"
     android:layout_height="150dp">
 
-    <ru.devsokovix.evening.RatingDonutView
+    <ru.devsokovix.evening.view.customviews.RatingDonutView
         android:id="@+id/rating"
         android:layout_width="50dp"
         android:layout_height="65dp"

@@ -1,8 +1,8 @@
-package drawable
+package ru.devsokovix.evening.view.rv_viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.devsokovix.evening.Film
+import ru.devsokovix.evening.domain.Film
 import ru.devsokovix.evening.databinding.FilmItemBinding
 
 
