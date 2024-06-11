@@ -128,6 +128,7 @@ class RatingDonutView @JvmOverloads constructor(
             MeasureSpec.AT_MOST, MeasureSpec.EXACTLY -> size
             else -> 300
         }
+
     private fun drawRating(canvas: Canvas) {
         //Здесь мы можем регулировать размер нашего кольца
         val scale = radius * 0.8f
@@ -136,7 +137,7 @@ class RatingDonutView @JvmOverloads constructor(
         //Перемещаем нулевые координаты канваса в центр, вы помните, так проще рисовать все круглое
         canvas.translate(centerX, centerY)
         //Устанавливаем размеры под наш овал
-        oval.set(0f - scale, 0f - scale, scale , scale)
+        oval.set(0f - scale, 0f - scale, scale, scale)
         //Рисуем задний фон(Желательно его отрисовать один раз в bitmap, так как он статичный)
         canvas.drawCircle(0f, 0f, radius, circlePaint)
         //Рисуем "арки", из них и будет состоять наше кольцо + у нас тут специальный метод
@@ -157,7 +158,7 @@ class RatingDonutView @JvmOverloads constructor(
         var advance = 0f
         for (width in widths) advance += width
         //Рисуем наш текст
-        canvas.drawText(message, centerX - advance / 2, centerY  + advance / 4, digitPaint)
+        canvas.drawText(message, centerX - advance / 2, centerY + advance / 4, digitPaint)
     }
 
     override fun onDraw(canvas: Canvas) {

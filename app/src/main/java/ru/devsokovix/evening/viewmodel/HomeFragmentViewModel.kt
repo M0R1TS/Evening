@@ -7,7 +7,8 @@ import ru.devsokovix.evening.domain.Film
 import ru.devsokovix.evening.domain.Interactor
 
 class HomeFragmentViewModel : ViewModel() {
-    val filmsListLiveData:  MutableLiveData<List<Film>> = MutableLiveData()
+    val filmsListLiveData: MutableLiveData<List<Film>> = MutableLiveData()
+
     //Инициализируем интерактор
     private var interactor: Interactor = App.instance.interactor
 

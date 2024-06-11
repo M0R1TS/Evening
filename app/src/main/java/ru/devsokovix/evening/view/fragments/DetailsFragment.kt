@@ -16,8 +16,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var film: Film
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,8 +44,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             intent.action = Intent.ACTION_SEND
             //Кладем данные о нашем фильме
             intent.putExtra(
-                Intent.EXTRA_TEXT,
-                "Check out this film: ${film.title} \n\n ${film.description}"
+                Intent.EXTRA_TEXT, "Check out this film: ${film.title} \n\n ${film.description}"
             )
             //Указываем MIME тип, чтобы система знала, какое приложения предложить
             intent.type = "text/plain"
