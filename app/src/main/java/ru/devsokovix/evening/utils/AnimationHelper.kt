@@ -11,6 +11,7 @@ import kotlin.math.roundToInt
 object AnimationHelper {
     //Это переменная для того, чтобы круг проявления расходился именно от иконки меню навигации
     private const val menuItems = 4
+
     //В метод у нас приходит 3 параметра:
     //1 - наше rootView, которое одновременно является и контейнером
     //и объектом анимации
@@ -35,7 +36,13 @@ object AnimationHelper {
                         val startRadius = 0
                         val endRadius = hypot(rootView.width.toDouble(), rootView.height.toDouble())
                         //Создаем саму анимацию
-                        ViewAnimationUtils.createCircularReveal(rootView, x, y, startRadius.toFloat(), endRadius.toFloat()).apply {
+                        ViewAnimationUtils.createCircularReveal(
+                            rootView,
+                            x,
+                            y,
+                            startRadius.toFloat(),
+                            endRadius.toFloat()
+                        ).apply {
                             //Устанавливаем время анимации
                             duration = 500
                             //Интерполятор для более естественной анимации
