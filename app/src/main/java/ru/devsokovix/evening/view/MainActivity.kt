@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var animator: FilmItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
