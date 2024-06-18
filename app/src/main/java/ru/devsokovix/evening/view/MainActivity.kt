@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.ActivityMainBinding
-import ru.devsokovix.evening.databinding.FilmItemBinding
 import ru.devsokovix.evening.domain.Film
 import ru.devsokovix.evening.view.fragments.DetailsFragment
 import ru.devsokovix.evening.view.fragments.FavoritesFragment
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var animator: FilmItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
