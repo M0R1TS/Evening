@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ru.devsokovix.evening.R
+import ru.devsokovix.evening.data.API
 import ru.devsokovix.evening.databinding.ActivityMainBinding
 import ru.devsokovix.evening.databinding.FilmItemBinding
 import ru.devsokovix.evening.domain.Film
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_placeholder, HomeFragment())
             .addToBackStack(null)
             .commit()
+
+        println(API.KEY)
 
     }
 
