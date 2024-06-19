@@ -9,7 +9,7 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
-/src/main/java/ru/devsokovix/evening/view/rv_viewholders/API.kt
+/src/main/java/ru/devsokovix/evening/view/API.kt
 /captures
 .externalNativeBuild
 .cxx
