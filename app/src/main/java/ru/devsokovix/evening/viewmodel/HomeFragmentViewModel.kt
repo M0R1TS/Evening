@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.devsokovix.evening.App
 import ru.devsokovix.evening.domain.Film
-import ru.devsokovix.evening.domain.Interactor
+import ru.devsokovix.evening.data.Interactor
 
 class HomeFragmentViewModel : ViewModel() {
     val filmsListLiveData: MutableLiveData<List<Film>> = MutableLiveData()

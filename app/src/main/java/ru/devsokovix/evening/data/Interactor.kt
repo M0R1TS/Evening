@@ -1,9 +1,9 @@
-package ru.devsokovix.evening.domain
+package ru.devsokovix.evening.data
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.devsokovix.evening.data.MainRepository
+import ru.devsokovix.evening.domain.TmdbResultsDto
 import ru.devsokovix.evening.mn_interface.TmdbApi
 import ru.devsokovix.evening.utils.API
 import ru.devsokovix.evening.utils.Converter
