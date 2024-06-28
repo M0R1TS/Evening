@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.devsokovix.evening.data.MainRepository
-import ru.devsokovix.evening.domain.Interactor
+import ru.devsokovix.evening.data.Interactor
 import ru.devsokovix.evening.mn_interface.TmdbApi
 import ru.devsokovix.evening.utils.ApiConstants
 import java.util.concurrent.TimeUnit
