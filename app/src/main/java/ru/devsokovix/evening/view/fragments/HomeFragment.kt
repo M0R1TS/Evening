@@ -9,6 +9,7 @@ import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.devsokovix.evening.view.rv_adapters.FilmListRecyclerAdapter
 import ru.devsokovix.evening.view.MainActivity
 import ru.devsokovix.evening.R
@@ -118,6 +119,23 @@ class HomeFragment : Fragment() {
             //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
+
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0){
+                        val visibleItemCount = recyclerView.layoutManager!!.childCount
+                        val totalItemCount = recyclerView.layoutManager!!.itemCount
+                        val postVisibleItemCount =
+                            (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+
+                        viewModel.doPagination(
+                            visibleItemCount = visibleItemCount,
+                            totalItemCount = totalItemCount,
+                            postVisibleItemCount = postVisibleItemCount
+                        )
+                    }
+                }
+            })
         }
     }
 }
