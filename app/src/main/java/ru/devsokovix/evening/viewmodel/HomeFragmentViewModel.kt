@@ -33,21 +33,14 @@ class HomeFragmentViewModel : ViewModel() {
         )
     }
 
-    val smoothScroller = object : LinearSmoothScroller(context) {
-        override fun getVerticalSnapPreference(): Int {
-            return LinearSmoothScroller.SNAP_TO_START
-        }
-    }
 
     fun doPagination(
         visibleItemCount: Int,
         totalItemCount: Int,
-        postVisibleItemCount: Int,
-        RecyclerView: RecyclerView
+        postVisibleItemCount: Int
         ) {
         if ((visibleItemCount + postVisibleItemCount) >= totalItemCount - 5) {
             getdata(++page)
-
             }
         }
     }
@@ -57,4 +50,3 @@ class HomeFragmentViewModel : ViewModel() {
 
         fun onFailure()
     }
-}
