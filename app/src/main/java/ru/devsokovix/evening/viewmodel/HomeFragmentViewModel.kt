@@ -2,7 +2,6 @@ package ru.devsokovix.evening.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import ru.devsokovix.evening.App
 import ru.devsokovix.evening.data.Interactor
@@ -33,20 +32,29 @@ class HomeFragmentViewModel : ViewModel() {
         )
     }
 
-
     fun doPagination(
         visibleItemCount: Int,
         totalItemCount: Int,
-        postVisibleItemCount: Int
-        ) {
-        if ((visibleItemCount + postVisibleItemCount) >= totalItemCount - 5) {
+        postVisibleItemCount: Int,
+        recyclerView: RecyclerView
+    ) {
+        if ((visibleItemCount + postVisibleItemCount) >= totalItemCount) {
+            recyclerView.postDelayed(
+                Runnable {
+                    // перемещаем пользователя на вверх
+                    recyclerView.smoothScrollToPosition(0)
+
+                    // задержка отсутствует
+                },
+                0,
+            )
             getdata(++page)
-            }
         }
     }
+}
 
-    interface ApiCallback {
-        fun onSuccess(films: List<Film>)
+interface ApiCallback {
+    fun onSuccess(films: List<Film>)
 
-        fun onFailure()
-    }
+    fun onFailure()
+}

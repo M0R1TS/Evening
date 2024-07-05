@@ -131,7 +131,8 @@ class HomeFragment : Fragment() {
                         viewModel.doPagination(
                             visibleItemCount = visibleItemCount,
                             totalItemCount = totalItemCount,
-                            postVisibleItemCount = postVisibleItemCount
+                            postVisibleItemCount = postVisibleItemCount,
+                            recyclerView = recyclerView
                         )
                     }
                 }
