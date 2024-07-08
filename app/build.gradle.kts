@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("kotlin-parcelize")
+    id ("kotlin-parcelize")
+    id ("kotlin-android")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -42,10 +44,16 @@ android {
 }
 
 dependencies {
+    //Dagger
+    implementation ("com.google.dagger:dagger:2.51")
+    kapt ("com.google.dagger:dagger-compiler:2.51")
+
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.6.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:3.12.6")
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     implementation ("com.google.code.gson:gson:2.11.0")
