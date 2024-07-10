@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class RemoteModule {
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+      fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
         //Настраиваем таймауты для медленного интернета
         .callTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
