@@ -16,6 +16,7 @@ import javax.inject.Singleton
         DomainModule::class
     ]
 )
+
 interface AppComponent {
     //метод для того, чтобы появилась внедрять зависимости в HomeFragmentViewModel
     fun inject(homeFragmentViewModel: HomeFragmentViewModel)
