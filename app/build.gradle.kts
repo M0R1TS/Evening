@@ -55,6 +55,10 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
 
+    //Lifecycle
+    implementation ("android.arch.lifecycle:extensions:1.1.1")
+    annotationProcessor ("android.arch.lifecycle:compiler:1.1.1")
+
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
     implementation ("com.google.code.gson:gson:2.11.0")
     implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
