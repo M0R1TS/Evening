@@ -5,6 +5,7 @@ import ru.devsokovix.evening.di.modules.DatabaseModule
 import ru.devsokovix.evening.di.modules.DomainModule
 import ru.devsokovix.evening.di.modules.RemoteModule
 import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
+import ru.devsokovix.evening.viewmodel.SettingsFragmentViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -16,10 +17,9 @@ import javax.inject.Singleton
         DomainModule::class
     ]
 )
-
 interface AppComponent {
-    //метод для того, чтобы появилась внедрять зависимости в HomeFragmentViewModel
+    //метод для того, чтобы появилась возможность внедрять зависимости в HomeFragmentViewModel
     fun inject(homeFragmentViewModel: HomeFragmentViewModel)
-    //метод для того , чтобы появилась возможность внедрять зависимость в SettingFragmentViewModel
-//    fun inject(settingsFragmentViewModel: SettingFragmentViewModel)
+    //метод для того, чтобы появилась возможность внедрять зависимости в SettingsFragmentViewModel
+    fun inject(settingsFragmentViewModel: SettingsFragmentViewModel)
 }
