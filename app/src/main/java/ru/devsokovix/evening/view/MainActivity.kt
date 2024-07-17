@@ -16,6 +16,7 @@ import ru.devsokovix.evening.view.fragments.DetailsFragment
 import ru.devsokovix.evening.view.fragments.FavoritesFragment
 import ru.devsokovix.evening.view.fragments.HomeFragment
 import ru.devsokovix.evening.view.fragments.SelectionsFragment
+import ru.devsokovix.evening.view.fragments.SettingsFragment
 import ru.devsokovix.evening.view.fragments.WatchLaterFragment
 
 
@@ -24,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     private lateinit var binding: ActivityMainBinding
+
+    var fileFavList = listOf<Film>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -93,6 +96,13 @@ class MainActivity : AppCompatActivity() {
                     val tag = "selections"
                     val fragment = checkFragmentExistence(tag)
                     changeFragment(fragment ?: SelectionsFragment(), tag)
+                    true
+                }
+
+                R.id.settings -> {
+                    val tag = "settings"
+                    val fragment = checkFragmentExistence(tag)
+                    changeFragment( fragment?: SettingsFragment(), tag)
                     true
                 }
 

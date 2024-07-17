@@ -9,16 +9,16 @@ import ru.devsokovix.evening.data.PreferenceProvider
 import ru.devsokovix.evening.mn_interface.TmdbApi
 import javax.inject.Singleton
 
-// Передаём контекст для SharedPreferences через конструктор
+// Передаем контекст для SharedPreferences через конструктор
 @Module
 class DomainModule(
     val context: Context,
 ) {
-    // Нам нужен контекст как-то провайдить, поэтому создаём такой метод
+    // Нам нужно контекст как-то провайдить, поэтому создаем такой метод
     @Provides
     fun provideContext() = context
 
-    // Создаем экземляр SharedPreferences
+    // Создаем экземпляр SharedPreferences
     @Singleton
     @Provides
     fun providePreferences(context: Context) = PreferenceProvider(context)

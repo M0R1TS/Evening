@@ -3,10 +3,10 @@ package ru.devsokovix.evening.data
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.devsokovix.evening.domain.TmdbResultsDto
 import ru.devsokovix.evening.mn_interface.TmdbApi
 import ru.devsokovix.evening.utils.API
 import ru.devsokovix.evening.utils.Converter
-import ru.devsokovix.evening.domain.TmdbResultsDto
 import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
 
 class Interactor(
@@ -28,7 +28,7 @@ class Interactor(
                         response: Response<TmdbResultsDto>,
                     ) {
                         // При успехе мы вызываем метод передаем onSuccess и в этот коллбэк список фильмов
-                        callback.onSuccess(Converter.convertApiListToDTOList(response.body()?.tmdbFilms))
+                        callback.onSuccess(Converter.convertApiListToDtoList(response.body()?.tmdbFilms))
                     }
 
                     override fun onFailure(
@@ -48,5 +48,5 @@ class Interactor(
     }
 
     // Метод для получения настроек
-    fun getDefaultCategoryFromPreferences() = preferences.geDefaultCategory()
+    fun getDefaultCategoryFromPreferences() = preferences.getDefaultCategory()
 }

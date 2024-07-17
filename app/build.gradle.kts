@@ -46,6 +46,7 @@ android {
 dependencies {
     //Dagger
     implementation ("com.google.dagger:dagger:2.51")
+    implementation(libs.androidx.swiperefreshlayout)
     kapt ("com.google.dagger:dagger-compiler:2.51")
 
     //Retrofit

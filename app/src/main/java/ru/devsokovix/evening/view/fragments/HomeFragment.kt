@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,7 +67,7 @@ class HomeFragment : Fragment() {
             binding.searchView.isIconified = false
         }
         //Подключаем слушателя изменений введенного текста в поиска
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,androidx.appcompat.widget.SearchView.OnQueryTextListener{
+        binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
             //Этот метод отрабатывает при нажатии кнопки "поиск" на софт клавиатуре
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -90,11 +89,22 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
+        initPullToRefresh()
         AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
         viewModel.filmsListLiveData.observe(viewLifecycleOwner, Observer<List<Film>> {
             filmsDataBase = it
+            filmsAdapter.addItems(it)
         })
     }
-
+    private fun initPullToRefresh() {
+        //Вешаем слушатель, чтобы вызвался pull to refresh
+        binding.pullToRefresh.setOnRefreshListener {
+            //Чистим адаптер(items нужно будет сделать паблик или создать для этого публичный метод)
+            filmsAdapter.items.clear()
+            //Делаем новый запрос фильмов на сервер
+            viewModel.getFilms()
+            //Убираем крутящиеся колечко
+            binding.pullToRefresh.isRefreshing = false
+        }
+    }
 }

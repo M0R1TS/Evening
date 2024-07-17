@@ -8,18 +8,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.devsokovix.evening.view.rv_adapters.FilmListRecyclerAdapter
 import ru.devsokovix.evening.view.MainActivity
-import ru.devsokovix.evening.R
 import ru.devsokovix.evening.view.rv_adapters.TopSpacingItemDecoration
 import ru.devsokovix.evening.databinding.FragmentFavoritesBinding
 import ru.devsokovix.evening.domain.Film
 import ru.devsokovix.evening.utils.AnimationHelper
 
 
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
-
+class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
-
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,26 +34,34 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Получаем список при транзакции фрагмента
-        val favoritesList: List<Film> = emptyList()
-
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentHome, requireActivity(),2)
-
-        binding.favoritesRecycler.apply {
-            filmsAdapter =
-                FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
-                    override fun click(film: Film) {
-                        (requireActivity() as MainActivity).launchDetailsFragment(film)
-                    }
-                })
-            //Присваиваем адаптер
-            adapter = filmsAdapter
-            //Присвои layoutmanager
-            layoutManager = LinearLayoutManager(requireContext())
-            //Применяем декоратор для отступов
-            val decorator = TopSpacingItemDecoration(8)
-            addItemDecoration(decorator)
-        }
+        binding.favoritesRecycler
+            .apply {
+                filmsAdapter =
+                    FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
+                        override fun click(film: Film) {
+                            (requireActivity() as MainActivity).launchDetailsFragment(film)
+                        }
+                    })
+                //Присваиваем адаптер
+                adapter = filmsAdapter
+                //Присвои layoutmanager
+                layoutManager = LinearLayoutManager(requireContext())
+                //Применяем декоратор для отступов
+                val decorator = TopSpacingItemDecoration(8)
+                addItemDecoration(decorator)
+            }
         //Кладем нашу БД в RV
-        filmsAdapter.addItems(favoritesList)
+        val fileList = (requireActivity() as MainActivity).fileFavList
+        var tempList = listOf<Film>()
+        if (fileList != null) {
+            fileList.forEach {
+                if (it.isInFavorites)
+                    tempList += it
+            }
+            if (!fileList.isEmpty())
+                filmsAdapter.addItems(tempList)
+        }
+
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.favoritesFragmentHome, requireActivity(), 2)
     }
 }
