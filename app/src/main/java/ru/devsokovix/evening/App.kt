@@ -4,6 +4,9 @@ package ru.devsokovix.evening
 import android.app.Application
 import ru.devsokovix.evening.di.AppComponent
 import ru.devsokovix.evening.di.DaggerAppComponent
+import ru.devsokovix.evening.di.modules.DatabaseModule
+import ru.devsokovix.evening.di.modules.DomainModule
+import ru.devsokovix.evening.di.modules.RemoteModule
 
 class App : Application() {
     lateinit var dagger: AppComponent
@@ -13,7 +16,11 @@ class App : Application() {
         //Инициализируем экземпляр App, через который будем получать доступ к остальным переменным
         instance = this
         //Создаем компонент
-        dagger = DaggerAppComponent.create()
+        dagger = DaggerAppComponent.builder()
+            .remoteModule(RemoteModule())
+            .databaseModule(DatabaseModule())
+            .domainModule(DomainModule(this))
+            .build()
     }
 
     companion object {

@@ -4,21 +4,26 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/outline_home_24"
-        android:title="@string/GLAV"/>
+        android:title="Главная"/>
     <item
         android:id="@+id/favorites"
         android:icon="@android:drawable/btn_star"
-        android:title="@string/Izbranoe"
+        android:title="Избранное"
         app:showAsAction="withText" />
     <item
         android:id="@+id/selections"
         android:icon="@drawable/baseline_watch_later_24"
-        android:title="@string/Podborki"
+        android:title="Подборка"
         app:showAsAction="withText" />
     <item
         android:id="@+id/watch_later"
         android:icon="@drawable/baseline_smart_display_24"
-        android:title="@string/Pozje"
+        android:title="Позже"
         app:showAsAction="withText" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="Настройки"
+        app:showAsAction="withText"/>
 
 </menu>
