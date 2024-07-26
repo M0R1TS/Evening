@@ -1,14 +1,17 @@
-package ru.devsokovix.evening.data
+package ru.devsokovix.evening.domain
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.devsokovix.evening.domain.Film
-import ru.devsokovix.evening.domain.TmdbResultsDto
-import ru.devsokovix.evening.mn_interface.TmdbApi
+import ru.devsokovix.evening.data.MainRepository
+import ru.devsokovix.evening.data.PreferenceProvider
+import ru.devsokovix.evening.data.TmdbApi
+import ru.devsokovix.evening.data.entity.Film
+import ru.devsokovix.evening.data.entity.TmdbResultsDto
 import ru.devsokovix.evening.utils.API
 import ru.devsokovix.evening.utils.Converter
 import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
+import java.util.Calendar
 
 class Interactor(
     private val repo: MainRepository,
@@ -23,12 +26,8 @@ class Interactor(
     ) {
         // Метод getDefaultCategoryFromPreferences() будет нам получать при каждом запросе нужный нам список фильмов
         retrofitService
-            .getFilms(
-                getDefaultCategoryFromPreferences(),
-                API.KEY,
-                "ru-RU",
-                page,
-            ).enqueue(
+            .getFilms(getDefaultCategoryFromPreferences(), API.KEY, "ru-RU", page)
+            .enqueue(
                 object : Callback<TmdbResultsDto> {
                     override fun onResponse(
                         call: Call<TmdbResultsDto>,
@@ -38,8 +37,10 @@ class Interactor(
                         val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
                         // Кладем фильмы в бд
                         list.forEach {
-                            repo.putToDb(film = it)
+                            repo.putToDb(list)
                         }
+                        val data: Calendar = Calendar.getInstance()
+                        preferences.saveDounloadTime(data.timeInMillis)
                         callback.onSuccess(list)
                     }
 
@@ -61,6 +62,12 @@ class Interactor(
 
     // Метод для получения настроек
     fun getDefaultCategoryFromPreferences() = preferences.getDefaultCategory()
+
+    fun getDounloadTimeFromPreferences() = preferences.getDounloadTime()
+
+    fun saveDounloadTimeFromPreferences(data: Long) {
+        preferences.saveDounloadTime(data)
+    }
 
     fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
 

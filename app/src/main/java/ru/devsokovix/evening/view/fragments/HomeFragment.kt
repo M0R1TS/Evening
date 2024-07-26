@@ -12,7 +12,7 @@ import ru.devsokovix.evening.view.rv_adapters.FilmListRecyclerAdapter
 import ru.devsokovix.evening.view.MainActivity
 import ru.devsokovix.evening.view.rv_adapters.TopSpacingItemDecoration
 import ru.devsokovix.evening.databinding.FragmentHomeBinding
-import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.evening.utils.AnimationHelper
 import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
 import java.util.Locale
