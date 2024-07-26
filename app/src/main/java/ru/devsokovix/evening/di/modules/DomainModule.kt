@@ -3,10 +3,10 @@ package ru.devsokovix.evening.di.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import ru.devsokovix.evening.data.Interactor
+import ru.devsokovix.evening.domain.Interactor
 import ru.devsokovix.evening.data.MainRepository
 import ru.devsokovix.evening.data.PreferenceProvider
-import ru.devsokovix.evening.mn_interface.TmdbApi
+import ru.devsokovix.evening.data.TmdbApi
 import javax.inject.Singleton
 
 // Передаем контекст для SharedPreferences через конструктор

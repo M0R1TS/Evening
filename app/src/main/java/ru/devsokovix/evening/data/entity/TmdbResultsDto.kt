@@ -1,6 +1,7 @@
-package ru.devsokovix.evening.domain
+package ru.devsokovix.evening.data.entity
 
 import com.google.gson.annotations.SerializedName
+import ru.devsokovix.evening.data.entity.TmdbFilm
 
 data class TmdbResultsDto(
     @SerializedName("page")

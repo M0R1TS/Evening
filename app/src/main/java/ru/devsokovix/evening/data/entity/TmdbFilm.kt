@@ -1,4 +1,4 @@
-package ru.devsokovix.evening.domain
+package ru.devsokovix.evening.data.entity
 
 import com.google.gson.annotations.SerializedName
 

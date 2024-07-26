@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.devsokovix.evening.view.rv_viewholders.FilmViewHolder
-import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.evening.databinding.FilmItemBinding
 
 //в параметр передаем слушатель, чтобы мы потом могли обрабатывать нажатия из класса активити

@@ -2,57 +2,36 @@ package ru.devsokovix.evening.data
 
 import android.content.ContentValues
 import android.database.Cursor
-import ru.devsokovix.evening.R
+import ru.devsokovix.evening.data.dao.FilmDao
 import ru.devsokovix.evening.data.db.DatabaseHelper
-import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.data.entity.Film
+import java.util.concurrent.Executors
 
-class MainRepository(databaseHelper: DatabaseHelper) {
-    //Инициализируем объект для взаимодействия с БД
-    private val sqlDb = databaseHelper.readableDatabase
-    //Создаем курсор для обработки запросов из БД
-    private lateinit var cursor: Cursor
-
-    fun putToDb(film: Film) {
-        //Создаем объект, который будет хранить пары ключ-значение, для того
-        //чтобы класть нужные данные в нужные столбцы
-        val cv = ContentValues()
-        cv.apply {
-            put(DatabaseHelper.COLUMN_TITLE, film.title)
-            put(DatabaseHelper.COLUMN_POSTER, film.poster)
-            put(DatabaseHelper.COLUMN_DESCRIPTION, film.description)
-            put(DatabaseHelper.COLUMN_RATING, film.rating)
+class MainRepository(private val filmDao: FilmDao) {
+    fun putToDb(films: List<Film>) {
+        //Запросы в БД должны быть в отдельном потоке
+        Executors.newSingleThreadExecutor().execute {
+            filmDao.insertAll(films)
         }
-        //Кладем фильм в БД
-        sqlDb.insert(DatabaseHelper.TABLE_NAME, null, cv)
     }
 
     fun getAllFromDB(): List<Film> {
-        //Создаем курсор на основании запроса "Получить все из таблицы"
-        cursor = sqlDb.rawQuery("SELECT * FROM ${DatabaseHelper.TABLE_NAME}", null)
-        //Сюда будем сохранять результат получения данных
-        val result = mutableListOf<Film>()
-        //Проверяем, есть ли хоть одна строка в ответе на запрос
-        if (cursor.moveToFirst()) {
-            //Итерируемся по таблице, пока есть записи, и создаем на основании объект Film
-            do {
-                val title = cursor.getString(1)
-                val poster = cursor.getString(2)
-                val description = cursor.getString(3)
-                val rating = cursor.getDouble(4)
-
-                result.add(Film(title, poster, description, rating))
-            } while (cursor.moveToNext())
-        }
-        //Возвращаем список фильмов
-        return result
+        return filmDao.getCachedFilms()
     }
     //Очистка кэша
     fun clearCache(){
-        sqlDb.delete(DatabaseHelper.TABLE_NAME, null, null)
+        Executors.newSingleThreadExecutor().execute {
+            val list = filmDao.getCachedFilms()
+            filmDao.deleteDB(list)
+        }
     }
     //Очистить кэш от фильмов с рейтингом ниже 8.0
     fun clearInCacheBadFilms(){
-        val min: Double = 8.0
-        sqlDb.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper.COLUMN_RATING + "<=?" , arrayOf(min.toString()))
+        Executors.newSingleThreadExecutor().execute {
+            val list = filmDao.getCachedFilmsGood(0.0, 7.99)
+            list.forEach{
+                filmDao.deleteFilm(it)
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ package ru.devsokovix.evening.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.devsokovix.evening.App
-import ru.devsokovix.evening.data.Interactor
+import ru.devsokovix.evening.domain.Interactor
 import javax.inject.Inject
 
 class SettingsFragmentViewModel: ViewModel() {

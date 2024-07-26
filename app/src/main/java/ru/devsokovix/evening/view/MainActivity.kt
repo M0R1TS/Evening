@@ -4,14 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.ActivityMainBinding
-import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.evening.view.fragments.DetailsFragment
 import ru.devsokovix.evening.view.fragments.FavoritesFragment
 import ru.devsokovix.evening.view.fragments.HomeFragment

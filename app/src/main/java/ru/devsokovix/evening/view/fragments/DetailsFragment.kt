@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.FragmentDetailsBinding
-import ru.devsokovix.evening.domain.Film
+import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.evening.utils.ApiConstants
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
