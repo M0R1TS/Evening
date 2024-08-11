@@ -1,5 +1,6 @@
 package ru.devsokovix.evening.domain
 
+import androidx.lifecycle.LiveData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +42,7 @@ class Interactor(
                         }
                         val data: Calendar = Calendar.getInstance()
                         preferences.saveDounloadTime(data.timeInMillis)
-                        callback.onSuccess(list)
+                        callback.onSuccess()
                     }
 
                     override fun onFailure(
@@ -69,7 +70,7 @@ class Interactor(
         preferences.saveDounloadTime(data)
     }
 
-    fun getFilmsFromDB(): List<Film> = repo.getAllFromDB()
+    fun getFilmsFromDB(): LiveData<List<Film>> = repo.getAllFromDB()
 
     fun clearCache() = repo.clearCache()
 
