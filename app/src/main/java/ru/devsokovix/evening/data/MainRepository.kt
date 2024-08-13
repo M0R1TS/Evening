@@ -2,6 +2,7 @@ package ru.devsokovix.evening.data
 
 import android.content.ContentValues
 import android.database.Cursor
+import androidx.lifecycle.LiveData
 import ru.devsokovix.evening.data.dao.FilmDao
 import ru.devsokovix.evening.data.db.DatabaseHelper
 import ru.devsokovix.evening.data.entity.Film
@@ -15,14 +16,15 @@ class MainRepository(private val filmDao: FilmDao) {
         }
     }
 
-    fun getAllFromDB(): List<Film> {
-        return filmDao.getCachedFilms()
-    }
+    fun getAllFromDB(): LiveData<List<Film>> =
+        filmDao.getCachedFilms()
+
     //Очистка кэша
     fun clearCache(){
         Executors.newSingleThreadExecutor().execute {
-            val list = filmDao.getCachedFilms()
-            filmDao.deleteDB(list)
+            val list = filmDao.getCachedFilms().value?.toList()
+            if (list != null)
+                filmDao.deleteDB(list)
         }
     }
     //Очистить кэш от фильмов с рейтингом ниже 8.0

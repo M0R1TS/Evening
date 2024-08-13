@@ -95,6 +95,9 @@ class HomeFragment : Fragment() {
             filmsDataBase = it
             filmsAdapter.addItems(it)
         })
+        viewModel.showProgressBar.observe(viewLifecycleOwner, Observer<Boolean> {
+            binding.progressBar.visibility = if(it) View.VISIBLE else View.INVISIBLE
+        })
     }
     private fun initPullToRefresh() {
         //Вешаем слушатель, чтобы вызвался pull to refresh
