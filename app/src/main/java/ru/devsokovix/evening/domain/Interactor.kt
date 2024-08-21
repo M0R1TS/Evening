@@ -1,6 +1,11 @@
 package ru.devsokovix.evening.domain
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,20 +16,22 @@ import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.evening.data.entity.TmdbResultsDto
 import ru.devsokovix.evening.utils.API
 import ru.devsokovix.evening.utils.Converter
-import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
-import java.util.Calendar
 
 class Interactor(
     private val repo: MainRepository,
     private val retrofitService: TmdbApi,
     private val preferences: PreferenceProvider,
 ) {
+    val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    var progressBarState = Channel<Boolean>(Channel.CONFLATED)
+
     // В конструктор мы будем передавать коллбэк из вью модели, чтобы реагировать на то, когда фильмы будут получены
     // и страницу, которую нужно загрузить (это для пагинации)
-    fun getFilmsFromApi(
-        page: Int,
-        callback: HomeFragmentViewModel.ApiCallback,
-    ) {
+    fun getFilmsFromApi(page: Int) {
+        // Показываем ProgressBar
+        scope.launch {
+            progressBarState.send(true)
+        }
         // Метод getDefaultCategoryFromPreferences() будет нам получать при каждом запросе нужный нам список фильмов
         retrofitService
             .getFilms(getDefaultCategoryFromPreferences(), API.KEY, "ru-RU", page)
@@ -34,15 +41,13 @@ class Interactor(
                         call: Call<TmdbResultsDto>,
                         response: Response<TmdbResultsDto>,
                     ) {
-                        // При успехе мы вызываем метод передаем onSuccess и в этот коллбэк список фильмов
                         val list = Converter.convertApiListToDtoList(response.body()?.tmdbFilms)
                         // Кладем фильмы в бд
-                        list.forEach {
+                        // В случае успешного ответа кладем фильмы в БД и выключаем ProgressBar
+                        scope.launch {
                             repo.putToDb(list)
+                            progressBarState.send(false)
                         }
-                        val data: Calendar = Calendar.getInstance()
-                        preferences.saveDounloadTime(data.timeInMillis)
-                        callback.onSuccess()
                     }
 
                     override fun onFailure(
@@ -50,7 +55,9 @@ class Interactor(
                         t: Throwable,
                     ) {
                         // В случае провала вызываем другой метод коллбека
-                        callback.onFailure()
+                        scope.launch {
+                            progressBarState.send(false)
+                        }
                     }
                 },
             )
@@ -64,13 +71,7 @@ class Interactor(
     // Метод для получения настроек
     fun getDefaultCategoryFromPreferences() = preferences.getDefaultCategory()
 
-    fun getDounloadTimeFromPreferences() = preferences.getDounloadTime()
-
-    fun saveDounloadTimeFromPreferences(data: Long) {
-        preferences.saveDounloadTime(data)
-    }
-
-    fun getFilmsFromDB(): LiveData<List<Film>> = repo.getAllFromDB()
+    fun getFilmsFromDB(): Flow<List<Film>> = repo.getAllFromDB()
 
     fun clearCache() = repo.clearCache()
 
