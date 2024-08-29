@@ -1,15 +1,11 @@
 package ru.devsokovix.evening.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.rxjava3.core.Observable
 import ru.devsokovix.evening.App
 import ru.devsokovix.evening.domain.Interactor
 import ru.devsokovix.evening.data.entity.Film
-import java.util.Calendar
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class HomeFragmentViewModel : ViewModel() {
@@ -17,8 +13,8 @@ class HomeFragmentViewModel : ViewModel() {
     //Инициализируем интерактор
     @Inject
     lateinit var interactor: Interactor
-    val filmsListData : Flow<List<Film>>
-    val showProgressBar: Channel<Boolean>
+    val filmsListData : Observable<List<Film>>
+    val showProgressBar: BehaviorSubject<Boolean>
 
     init {
         App.instance.dagger.inject(this)
@@ -35,5 +31,4 @@ class HomeFragmentViewModel : ViewModel() {
         fun onFailure()
     }
 }
-
 
