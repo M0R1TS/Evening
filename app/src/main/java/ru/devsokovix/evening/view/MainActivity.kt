@@ -14,7 +14,6 @@ import ru.devsokovix.evening.view.fragments.SelectionsFragment
 import ru.devsokovix.evening.view.fragments.SettingsFragment
 import ru.devsokovix.evening.view.fragments.WatchLaterFragment
 
-
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private var backPressed = 0L

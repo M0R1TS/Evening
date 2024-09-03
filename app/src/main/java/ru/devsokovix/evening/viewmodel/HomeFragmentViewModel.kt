@@ -1,11 +1,11 @@
 package ru.devsokovix.evening.viewmodel
 
 import androidx.lifecycle.ViewModel
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 import ru.devsokovix.evening.App
-import ru.devsokovix.evening.domain.Interactor
 import ru.devsokovix.evening.data.entity.Film
+import ru.devsokovix.evening.domain.Interactor
 import javax.inject.Inject
 
 class HomeFragmentViewModel : ViewModel() {
@@ -26,9 +26,6 @@ class HomeFragmentViewModel : ViewModel() {
         interactor.getFilmsFromApi(1)
     }
 
-    interface ApiCallback {
-        fun onSuccess()
-        fun onFailure()
-    }
+    fun getSearchResult(search: String) = interactor.getSearchResultFromApi(search)
 }
 
