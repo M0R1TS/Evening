@@ -19,7 +19,6 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     //Миграций мы не предполагаем, поэтому метод пустой
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
-
     companion object {
         //Название самой БД
         private const val DATABASE_NAME = "films.db"
