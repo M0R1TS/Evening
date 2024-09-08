@@ -6,7 +6,7 @@ import ru.devsokovix.evening.App
 import ru.devsokovix.evening.domain.Interactor
 import javax.inject.Inject
 
-class SettingsFragmentViewModel: ViewModel() {
+class SettingsFragmentViewModel : ViewModel() {
     //Инжектим интерактор
     @Inject
     lateinit var interactor: Interactor
@@ -14,19 +14,19 @@ class SettingsFragmentViewModel: ViewModel() {
 
     init {
         App.instance.dagger.inject(this)
-        //Получаемкатегорию при инициализации, чтобы у нас сразу подтягивалась категория
+        //Получаем категорию при иницализации, чтобы у нас сразу подтягивалась категория
         getCategoryProperty()
     }
 
     private fun getCategoryProperty() {
-        //Кладем категорию в LiveData
+        //Кладем каттегорию в LiveData
         categoryPropertyLifeData.value = interactor.getDefaultCategoryFromPreferences()
     }
 
     fun putCategoryProperty(category: String) {
         //Сохраняем в настройки
         interactor.saveDefaultCategoryToPreferences(category)
-        //И сразу забираем, чтобы сохранить сотояние в модели
+        //И сразу забираем,чтобы сохранить состояние в модели
         getCategoryProperty()
     }
 }

@@ -28,9 +28,9 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Подключаем анимации и передаем номер позиции у кнопки в нижнем меню
+        //Подключаем анимаци, и передаем номер позиции у кнопки в нижнем меню
         AnimationHelper.performFragmentCircularRevealAnimation(binding.settingsFragmentRoot, requireActivity(), 5)
-        //Слушаем, какой у нас сейчас выбран вариант в настройках
+        //Слушаем какой у нас сейчас выбран вариант в настройках
         viewModel.categoryPropertyLifeData.observe(viewLifecycleOwner, Observer<String> {
             when(it) {
                 POPULAR_CATEGORY -> binding.radioGroup.check(R.id.radio_popular)
@@ -47,12 +47,6 @@ class SettingsFragment : Fragment() {
                 R.id.radio_upcoming -> viewModel.putCategoryProperty(UPCOMING_CATEGORY)
                 R.id.radio_now_playing -> viewModel.putCategoryProperty(NOW_PLAYING_CATEGORY)
             }
-        }
-        binding.btnClearCache.setOnClickListener{
-            viewModel.interactor.clearCache()
-        }
-        binding.btnClearInCacheBadFilms.setOnClickListener{
-            viewModel.interactor.clearInCacheBadFilms()
         }
     }
 
