@@ -6,7 +6,7 @@ import dagger.Provides
 import ru.devsokovix.evening.domain.Interactor
 import ru.devsokovix.evening.data.MainRepository
 import ru.devsokovix.evening.data.PreferenceProvider
-import ru.devsokovix.evening.data.TmdbApi
+import ru.devsokovix.remote_module.TmdbApi
 import javax.inject.Singleton
 
 // Передаем контекст для SharedPreferences через конструктор
@@ -27,7 +27,7 @@ class DomainModule(
     @Provides
     fun provideInteractor(
         repository: MainRepository,
-        tmdbApi: TmdbApi,
+        tmdbApi: ru.devsokovix.remote_module.TmdbApi,
         preferenceProvider: PreferenceProvider,
     ) = Interactor(repo = repository, retrofitService = tmdbApi, preferences = preferenceProvider)
 }

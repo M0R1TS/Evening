@@ -1,4 +1,4 @@
-package ru.devsokovix.evening.di.modules
+package ru.devsokovix.remote_module
 
 import dagger.Module
 import dagger.Provides
@@ -7,9 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.devsokovix.evening.BuildConfig
-import ru.devsokovix.evening.data.TmdbApi
-import ru.devsokovix.evening.utils.ApiConstants
+import ru.devsokovix.remote_module.entity.ApiConstants
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

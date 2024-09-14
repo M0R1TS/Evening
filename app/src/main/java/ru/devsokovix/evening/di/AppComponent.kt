@@ -3,16 +3,16 @@ package ru.devsokovix.evening.di
 import dagger.Component
 import ru.devsokovix.evening.di.modules.DatabaseModule
 import ru.devsokovix.evening.di.modules.DomainModule
-import ru.devsokovix.evening.di.modules.RemoteModule
 import ru.devsokovix.evening.viewmodel.HomeFragmentViewModel
 import ru.devsokovix.evening.viewmodel.SettingsFragmentViewModel
+import ru.devsokovix.remote_module.RemoteProvider
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     //Внедряем все модули, нужные для этого компонента
+    dependencies = [RemoteProvider::class],
     modules = [
-        RemoteModule::class,
         DatabaseModule::class,
         DomainModule::class
     ]
