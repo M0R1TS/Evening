@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.FragmentDetailsBinding
 import ru.devsokovix.evening.data.entity.Film
-import ru.devsokovix.evening.utils.ApiConstants
+import ru.devsokovix.remote_module.entity.ApiConstants
 import ru.devsokovix.evening.view.MainActivity
 import ru.devsokovix.evening.viewmodel.DetailsFragmentViewModel
 
@@ -55,7 +55,7 @@ class DetailsFragment : Fragment() {
         binding.detailsToolbar.title = film.title
         //Устанавливаем картинку
         Glide.with(this)
-            .load(ApiConstants.IMAGES_URL + "w780" + film.poster)
+            .load(ru.devsokovix.remote_module.entity.ApiConstants.IMAGES_URL + "w780" + film.poster)
             .centerCrop()
             .into(binding.detailsPoster)
         //Устанавливаем описание
@@ -168,7 +168,7 @@ class DetailsFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
             //Создаем через async, так как нам нужен результат от работы, то есть Bitmap
             val job = scope.async {
-                viewModel.loadWallpaper(ApiConstants.IMAGES_URL + "original" + film.poster)
+                viewModel.loadWallpaper(ru.devsokovix.remote_module.entity.ApiConstants.IMAGES_URL + "original" + film.poster)
             }
             val bmp = job.await()
             if (bmp == null){

@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Evening"
 include(":app")
- 
+include(":remote_module")

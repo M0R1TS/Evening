@@ -1,4 +1,4 @@
-package ru.devsokovix.evening.data.entity
+package ru.devsokovix.remote_module.entity
 
 import com.google.gson.annotations.SerializedName
 
