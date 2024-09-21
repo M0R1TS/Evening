@@ -1,5 +1,8 @@
 package ru.devsokovix.evening.view
 
+import android.content.BroadcastReceiver
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,6 +10,7 @@ import androidx.fragment.app.Fragment
 import ru.devsokovix.evening.R
 import ru.devsokovix.evening.databinding.ActivityMainBinding
 import ru.devsokovix.evening.data.entity.Film
+import ru.devsokovix.evening.di.receivers.ConnectionChecker
 import ru.devsokovix.evening.view.fragments.DetailsFragment
 import ru.devsokovix.evening.view.fragments.FavoritesFragment
 import ru.devsokovix.evening.view.fragments.HomeFragment
@@ -19,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressed = 0L
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var receiver: BroadcastReceiver
 
     var fileFavList = listOf<Film>()
 
@@ -39,7 +44,19 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
 
+        receiver = ConnectionChecker()
+        val filters = IntentFilter().apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_BATTERY_LOW)
+        }
+        registerReceiver(receiver, filters)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
 
     fun launchDetailsFragment(film: Film) {
         //Создаем "посылку"
