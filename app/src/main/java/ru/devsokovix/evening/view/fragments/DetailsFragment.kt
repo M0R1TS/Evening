@@ -27,6 +27,7 @@ import ru.devsokovix.evening.databinding.FragmentDetailsBinding
 import ru.devsokovix.evening.data.entity.Film
 import ru.devsokovix.remote_module.entity.ApiConstants
 import ru.devsokovix.evening.view.MainActivity
+import ru.devsokovix.evening.view.notifications.NotificationHelper
 import ru.devsokovix.evening.viewmodel.DetailsFragmentViewModel
 
 class DetailsFragment : Fragment() {
@@ -93,6 +94,10 @@ class DetailsFragment : Fragment() {
         }
         binding.detailsFabDownloadWp.setOnClickListener {
             performAsyncLoadOfPoster()
+        }
+
+        binding.detailsFabWatchLater.setOnClickListener {
+            NotificationHelper.createNotification(requireContext(), film)
         }
     }
     //Узнаем, было ли получено разрешение ранее
